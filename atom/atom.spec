@@ -79,6 +79,7 @@ sed -i "s/$br//g" %{buildroot}%{_datadir}/applications/Atom.desktop
 mkdir -p %{buildroot}%{_libdir}/
 install -pm755 %{buildroot}%{_datadir}/atom/libchromiumcontent.so %{buildroot}%{_libdir}
 install -pm755 %{buildroot}%{_datadir}/atom/libudev.so.0 %{buildroot}%{_libdir}
+rm -Rf /tmp/atom-build
 
 %post
 
