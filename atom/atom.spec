@@ -4,7 +4,7 @@
 %global         _missing_build_ids_terminate_build 0
 
 Name:           %{npm_name}
-Version:        0.126.0
+Version:        0.128.0
 Release:        1%{?dist}
 Summary:        A hackable text editor for the 21st Century
 
@@ -25,6 +25,7 @@ BuildRequires:  libgnome-keyring-devel
 BuildRequires:  node-gyp
 BuildRequires:  git
 BuildRequires:  gyp >= 0.1-0.16.1970
+BuildRequires:  python2-devel
 Requires:       nodejs
 Requires:       http-parser
 Requires:       zsh
@@ -57,11 +58,13 @@ INSTALL_PREFIX=%{buildroot}/usr ; export INSTALL_PREFIX
 mkdir -p %{buildroot}%{_bindir}
 #curl -L https://npmjs.org/install.sh | sh
 # install new npm to build package
-npm install -g --prefix %{buildroot}/usr npm
+# npm config set registry="http://registry.npmjs.org/"
+npm config set ca ""
+npm config set strict-ssl false
+npm install -g --ca=null --prefix %{buildroot}/usr npm 
 # Export PATH to new npm version
 export PATH="%{buildroot}/usr/bin:$PATH"
 # ./script/build 2>&1 >> /dev/null
-npm config set ca ""
 ./script/build --verbose 2>&1
 npm config delete ca
 
