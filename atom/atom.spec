@@ -4,7 +4,7 @@
 %global         _missing_build_ids_terminate_build 0
 
 Name:           %{npm_name}
-Version:        0.130.0
+Version:        0.131.0
 Release:        1%{?dist}
 Summary:        A hackable text editor for the 21st Century
 
@@ -29,6 +29,7 @@ BuildRequires:  python2-devel
 Requires:       nodejs
 Requires:       http-parser
 Requires:       zsh
+Requires:       %{name}-libs = %{version}
 
 BuildRequires:  curl
 BuildRequires:  make
