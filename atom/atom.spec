@@ -4,8 +4,8 @@
 %global         _missing_build_ids_terminate_build 0
 
 Name:           %{npm_name}
-Version:        0.131.0
-Release:        1%{?dist}
+Version:        0.133.0
+Release:        2%{?dist}
 Summary:        A hackable text editor for the 21st Century
 
 Group:          Applications/Editors
@@ -25,6 +25,7 @@ BuildRequires:  libgnome-keyring-devel
 BuildRequires:  node-gyp
 BuildRequires:  git
 BuildRequires:  gyp >= 0.1-0.16.1970
+#BuildRequires:  gyp
 BuildRequires:  python2-devel
 Requires:       nodejs
 Requires:       http-parser
@@ -59,7 +60,7 @@ INSTALL_PREFIX=%{buildroot}/usr ; export INSTALL_PREFIX
 mkdir -p %{buildroot}%{_bindir}
 #curl -L https://npmjs.org/install.sh | sh
 # install new npm to build package
-# npm config set registry="http://registry.npmjs.org/"
+npm config set registry="http://registry.npmjs.org/"
 npm config set ca ""
 npm config set strict-ssl false
 npm install -g --ca=null --prefix %{buildroot}/usr npm 
@@ -112,6 +113,8 @@ rm -Rf /tmp/atom-build
 %{_libdir}/libudev.so.0
 
 %changelog
+* Tue Sep 30 2014 Helber Maciel Guerra <helbermg@gmail.com> - v0.133.0-2
+- Build OK
 * Fri Aug 22 2014 Helber Maciel Guerra <helbermg@gmail.com> - v0.123.0-2
 - Change package name to atom.
 * Thu Aug 21 2014 Helber Maciel Guerra <helbermg@gmail.com> - v0.123.0-1
