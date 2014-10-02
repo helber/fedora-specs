@@ -2,9 +2,10 @@
 %global         npm_name atom
 %global         atom_path %{_datadir}/atom
 %global         _missing_build_ids_terminate_build 0
+%global         gyp_revision 1967
 
 Name:           %{npm_name}
-Version:        0.133.0
+Version:        0.134.0
 Release:        2%{?dist}
 Summary:        A hackable text editor for the 21st Century
 
@@ -23,10 +24,15 @@ BuildRequires:  nodejs-packaging
 BuildRequires:  npm
 BuildRequires:  libgnome-keyring-devel
 BuildRequires:  node-gyp
-BuildRequires:  git
-BuildRequires:  gyp >= 0.1-0.16.1970
+#BuildRequires:  gyp >= 0.1-0.16.1970
 #BuildRequires:  gyp
 BuildRequires:  python2-devel
+BuildRequires:  python-setuptools
+BuildRequires:  make
+BuildRequires:  gcc
+BuildRequires:  gcc-c++
+BuildRequires:  glibc-devel
+BuildRequires:  git-core
 Requires:       nodejs
 Requires:       http-parser
 Requires:       zsh
@@ -34,6 +40,7 @@ Requires:       %{name}-libs = %{version}
 
 BuildRequires:  curl
 BuildRequires:  make
+BuildRequires:  svn
 
 
 %description
@@ -51,6 +58,11 @@ Libraries need for atom
 %prep
 %setup -q -n %{npm_name}-%{version}
 
+# Install gyp
+svn co http://gyp.googlecode.com/svn/trunk -r %{gyp_revision} gyp
+cd gyp
+%{__python} setup.py install --root $RPM_BUILD_ROOT
+
 %build
 # https://github.com/atom/atom/blob/master/docs/build-instructions/linux.md
 CFLAGS='%{optflags} -g -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64' ; export CFLAGS
@@ -63,7 +75,7 @@ mkdir -p %{buildroot}%{_bindir}
 npm config set registry="http://registry.npmjs.org/"
 npm config set ca ""
 npm config set strict-ssl false
-npm install -g --ca=null --prefix %{buildroot}/usr npm 
+npm install -g --ca=null --prefix %{buildroot}/usr npm
 # Export PATH to new npm version
 export PATH="%{buildroot}/usr/bin:$PATH"
 # ./script/build 2>&1 >> /dev/null
