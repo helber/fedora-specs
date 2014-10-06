@@ -6,7 +6,7 @@
 
 Name:           %{npm_name}
 Version:        0.135.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        A hackable text editor for the 21st Century
 
 Group:          Applications/Editors
@@ -57,7 +57,6 @@ Libraries need for atom
 
 %prep
 %setup -q -n %{npm_name}-%{version}
-
 # Install gyp
 svn co http://gyp.googlecode.com/svn/trunk -r %{gyp_revision} gyp
 cd gyp
@@ -78,7 +77,10 @@ npm config set strict-ssl false
 npm install -g --ca=null --prefix %{buildroot}/usr npm
 # Export PATH to new npm version
 export PATH="%{buildroot}/usr/bin:$PATH"
+# Python to gyp
+export PYTHONPATH=%{buildroot}/usr/lib/python2.7/site-packages
 # ./script/build 2>&1 >> /dev/null
+ls -l script
 ./script/build --verbose 2>&1
 npm config delete ca
 
