@@ -5,8 +5,8 @@
 %global         gyp_revision 1967
 
 Name:           %{npm_name}
-Version:        0.135.0
-Release:        3%{?dist}
+Version:        0.137.0
+Release:        2%{?dist}
 Summary:        A hackable text editor for the 21st Century
 
 Group:          Applications/Editors
@@ -94,7 +94,7 @@ rm -f %{buildroot}%{_datadir}/atom/resources/app/apm/node_modules/atom-package-m
 cd %{buildroot}%{_datadir}/atom/resources/app/apm/node_modules/atom-package-manager/bin/
 ln -sf /usr/bin/node node
 br=`echo %{buildroot}| sed -r 's/\//\\\\\//g'`
-sed -i "s/$br//g" %{buildroot}%{_datadir}/applications/Atom.desktop
+sed -i "s/$br//g" %{buildroot}%{_datadir}/applications/atom.desktop
 mkdir -p %{buildroot}%{_libdir}/
 install -pm755 %{buildroot}%{_datadir}/atom/libchromiumcontent.so %{buildroot}%{_libdir}
 install -pm755 %{buildroot}%{_datadir}/atom/libudev.so.0 %{buildroot}%{_libdir}
@@ -120,13 +120,17 @@ rm -Rf /tmp/atom-build
 %{_bindir}/apm
 %dir %{_datadir}/atom
 %{_datadir}/atom/*
-%{_datadir}/applications/Atom.desktop
+%{_datadir}/applications/atom.desktop
 
 %files libs
 %{_libdir}/libchromiumcontent.so
 %{_libdir}/libudev.so.0
 
 %changelog
+* Wed Oct 15 2014 Helber Maciel Guerra <helbermg@gmail.com> - v0.137.0-2
+- release 0.137.0
+* Tue Oct 07 2014 Helber Maciel Guerra <helbermg@gmail.com> - v0.136.0-1
+- release 0.136.0
 * Tue Sep 30 2014 Helber Maciel Guerra <helbermg@gmail.com> - v0.133.0-2
 - Build OK
 * Fri Aug 22 2014 Helber Maciel Guerra <helbermg@gmail.com> - v0.123.0-2
