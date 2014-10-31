@@ -5,8 +5,8 @@
 %global         gyp_revision 1967
 
 Name:           %{npm_name}
-Version:        0.137.0
-Release:        2%{?dist}
+Version:        0.141.0
+Release:        1%{?dist}
 Summary:        A hackable text editor for the 21st Century
 
 Group:          Applications/Editors
@@ -127,6 +127,8 @@ rm -Rf /tmp/atom-build
 %{_libdir}/libudev.so.0
 
 %changelog
+* Fri Oct 31 2014 Helber Maciel Guerra <helbermg@gmail.com> - v0.141.0-1
+- release 0.141.0
 * Wed Oct 15 2014 Helber Maciel Guerra <helbermg@gmail.com> - v0.137.0-2
 - release 0.137.0
 * Tue Oct 07 2014 Helber Maciel Guerra <helbermg@gmail.com> - v0.136.0-1
