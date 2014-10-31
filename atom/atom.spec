@@ -129,6 +129,8 @@ rm -Rf /tmp/atom-build
 %changelog
 * Fri Oct 31 2014 Helber Maciel Guerra <helbermg@gmail.com> - v0.141.0-1
 - release 0.141.0
+* Thu Oct 23 2014 Helber Maciel Guerra <helbermg@gmail.com> - v0.139.0-1
+- release 0.139.0
 * Wed Oct 15 2014 Helber Maciel Guerra <helbermg@gmail.com> - v0.137.0-2
 - release 0.137.0
 * Tue Oct 07 2014 Helber Maciel Guerra <helbermg@gmail.com> - v0.136.0-1
