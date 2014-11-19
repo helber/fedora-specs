@@ -2,11 +2,11 @@
 %global         npm_name atom
 %global         atom_path %{_datadir}/atom
 %global         _missing_build_ids_terminate_build 0
-%global         gyp_revision 1967
+%global         gyp_revision 2005
 
 Name:           %{npm_name}
 Version:        0.147.0
-Release:        1%{?dist}
+Release:        4%{?dist}
 Summary:        A hackable text editor for the 21st Century
 
 Group:          Applications/Editors
@@ -74,7 +74,8 @@ mkdir -p %{buildroot}%{_bindir}
 npm config set registry="http://registry.npmjs.org/"
 npm config set ca ""
 npm config set strict-ssl false
-npm install -g --ca=null --prefix %{buildroot}/usr npm
+npm install -g --ca=null --prefix %{buildroot}/usr npm@1.4.28
+# npm install -g --ca=null --prefix %{buildroot}/usr npm
 # Export PATH to new npm version
 export PATH="%{buildroot}/usr/bin:$PATH"
 # Python to gyp
