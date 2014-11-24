@@ -5,8 +5,8 @@
 %global         gyp_revision 2005
 
 Name:           %{npm_name}
-Version:        0.147.0
-Release:        4%{?dist}
+Version:        0.152.0
+Release:        1%{?dist}
 Summary:        A hackable text editor for the 21st Century
 
 Group:          Applications/Editors
