@@ -5,7 +5,7 @@
 %global         gyp_revision 2005
 
 Name:           %{npm_name}
-Version:        0.168.0
+Version:        0.180.0
 Release:        1%{?dist}
 Summary:        A hackable text editor for the 21st Century
 
@@ -91,8 +91,10 @@ CFLAGS='%{optflags} -g -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64' ; export CFLA
 CXXFLAGS='%{optflags} -g -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64' ; export CXXFLAGS
 INSTALL_PREFIX=%{buildroot}/usr ; export INSTALL_PREFIX
 ./script/grunt install 2>&1 >> /dev/null
-rm -f %{buildroot}%{_datadir}/atom/resources/app/apm/node_modules/atom-package-manager/bin/node
-cd %{buildroot}%{_datadir}/atom/resources/app/apm/node_modules/atom-package-manager/bin/
+#rm -f %{buildroot}%{_datadir}/atom/resources/app/apm/node_modules/atom-package-manager/bin/node
+#cd %{buildroot}%{_datadir}/atom/resources/app/apm/node_modules/atom-package-manager/bin/
+rm -f %{buildroot}%{_datadir}/atom/resources/app/apm/bin/node
+cd %{buildroot}%{_datadir}/atom/resources/app/apm/bin/
 ln -sf /usr/bin/node node
 br=`echo %{buildroot}| sed -r 's/\//\\\\\//g'`
 sed -i "s/$br//g" %{buildroot}%{_datadir}/applications/atom.desktop
