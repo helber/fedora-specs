@@ -5,7 +5,7 @@
 %global         gyp_revision 2005
 
 Name:           %{npm_name}
-Version:        0.180.0
+Version:        0.189.0
 Release:        1%{?dist}
 Summary:        A hackable text editor for the 21st Century
 
@@ -58,7 +58,8 @@ Libraries need for atom
 %prep
 %setup -q -n %{npm_name}-%{version}
 # Install gyp
-svn co http://gyp.googlecode.com/svn/trunk -r %{gyp_revision} gyp
+# svn co http://gyp.googlecode.com/svn/trunk -r %{gyp_revision} gyp
+git clone https://chromium.googlesource.com/external/gyp
 cd gyp
 %{__python} setup.py install --root $RPM_BUILD_ROOT
 
