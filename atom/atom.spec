@@ -5,7 +5,7 @@
 %global         gyp_revision 2005
 
 Name:           %{npm_name}
-Version:        0.189.0
+Version:        0.190.0
 Release:        1%{?dist}
 Summary:        A hackable text editor for the 21st Century
 
@@ -75,8 +75,9 @@ mkdir -p %{buildroot}%{_bindir}
 npm config set registry="http://registry.npmjs.org/"
 npm config set ca ""
 npm config set strict-ssl false
-npm install -g --ca=null --prefix %{buildroot}/usr npm@1.4.28
 # npm install -g --ca=null --prefix %{buildroot}/usr npm
+# npm install -g --ca=null --prefix %{buildroot}/usr npm@1.4.28
+npm install -g --ca=null --prefix %{buildroot}/usr npm@2.7.6
 # Export PATH to new npm version
 export PATH="%{buildroot}/usr/bin:$PATH"
 # Python to gyp
@@ -101,7 +102,7 @@ br=`echo %{buildroot}| sed -r 's/\//\\\\\//g'`
 sed -i "s/$br//g" %{buildroot}%{_datadir}/applications/atom.desktop
 mkdir -p %{buildroot}%{_libdir}/
 install -pm755 %{buildroot}%{_datadir}/atom/libchromiumcontent.so %{buildroot}%{_libdir}
-install -pm755 %{buildroot}%{_datadir}/atom/libudev.so.0 %{buildroot}%{_libdir}
+# install -pm755 %{buildroot}%{_datadir}/atom/libudev.so.0 %{buildroot}%{_libdir}
 rm -Rf /tmp/atom-build
 
 %post
@@ -128,7 +129,7 @@ rm -Rf /tmp/atom-build
 
 %files libs
 %{_libdir}/libchromiumcontent.so
-%{_libdir}/libudev.so.0
+# %{_libdir}/libudev.so.0
 
 %changelog
 * Fri Oct 31 2014 Helber Maciel Guerra <helbermg@gmail.com> - v0.141.0-1
