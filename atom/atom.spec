@@ -2,10 +2,9 @@
 %global         npm_name atom
 %global         atom_path %{_datadir}/atom
 %global         _missing_build_ids_terminate_build 0
-%global         gyp_revision 2005
 
 Name:           %{npm_name}
-Version:        0.207.0
+Version:        0.208.0
 Release:        1%{?dist}
 Summary:        A hackable text editor for the 21st Century
 
@@ -24,8 +23,6 @@ BuildRequires:  nodejs-packaging
 BuildRequires:  npm
 BuildRequires:  libgnome-keyring-devel
 BuildRequires:  node-gyp
-#BuildRequires:  gyp >= 0.1-0.16.1970
-#BuildRequires:  gyp
 BuildRequires:  python2-devel
 BuildRequires:  python-setuptools
 BuildRequires:  make
@@ -92,8 +89,8 @@ INSTALL_PREFIX=%{buildroot}/usr ; export INSTALL_PREFIX
 rm -f %{buildroot}%{_datadir}/atom/resources/app/apm/bin/node
 cd %{buildroot}%{_datadir}/atom/resources/app/apm/bin/
 ln -sf /usr/bin/node node
-br=`echo %{buildroot}| sed -r 's/\//\\\\\//g'`
-sed -i "s/$br//g" %{buildroot}%{_datadir}/applications/atom.desktop
+sed -i "s/=.*atom/=atom/g" %{buildroot}%{_datadir}/applications/atom.desktop
+sed -i "s/atom.png/atom/g" %{buildroot}%{_datadir}/applications/atom.desktop
 
 # copy over icons in sizes that most desktop environments like
 for i in 1024 512 256 128 64 48 32 24 16;do
@@ -132,6 +129,8 @@ rm -Rf /tmp/atom-build
 %{_libdir}/libchromiumcontent.so
 
 %changelog
+* Wed Jun 10 2015 Helber Maciel Guerra <helbermg@gmail.com> - v0.208.0-1
+- Fix atom.desktop
 * Tue Jun 09 2015 Helber Maciel Guerra <helbermg@gmail.com> - v0.207.0-1
 - Fix desktop icons and some rpmlint.
 * Fri Oct 31 2014 Helber Maciel Guerra <helbermg@gmail.com> - v0.141.0-1
