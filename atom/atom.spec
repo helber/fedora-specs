@@ -4,7 +4,7 @@
 %global         _missing_build_ids_terminate_build 0
 
 Name:           %{npm_name}
-Version:        0.208.0
+Version:        0.210.0
 Release:        1%{?dist}
 Summary:        A hackable text editor for the 21st Century
 
