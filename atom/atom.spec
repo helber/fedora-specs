@@ -4,7 +4,7 @@
 %global         _missing_build_ids_terminate_build 0
 
 Name:           %{npm_name}
-Version:        0.211.0
+Version:        1.0.3
 Release:        1%{?dist}
 Summary:        A hackable text editor for the 21st Century
 
@@ -129,6 +129,10 @@ rm -Rf /tmp/atom-build
 %{_libdir}/libchromiumcontent.so
 
 %changelog
+* Wed Jul 08 2015 Helber Maciel Guerra <helbermg@gmail.com> v1.0.1-1
+- Release 1.0.1
+* Thu Jun 25 2015 Helber Maciel Guerra <helbermg@gmail.com> v1.0.0-1
+- Release 1.0.0
 * Wed Jun 10 2015 Helber Maciel Guerra <helbermg@gmail.com> - v0.208.0-1
 - Fix atom.desktop
 * Tue Jun 09 2015 Helber Maciel Guerra <helbermg@gmail.com> - v0.207.0-1
