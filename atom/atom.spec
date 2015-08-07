@@ -4,7 +4,7 @@
 %global         _missing_build_ids_terminate_build 0
 
 Name:           %{npm_name}
-Version:        1.0.4
+Version:        1.0.5
 Release:        1%{?dist}
 Summary:        A hackable text editor for the 21st Century
 
@@ -65,7 +65,7 @@ CFLAGS='%{optflags} -g -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64' ; export CFLA
 CXXFLAGS='%{optflags} -g -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64' ; export CXXFLAGS
 export INSTALL_PREFIX=%{buildroot}/usr
 ## Upgrade npm
-mkdir -p %{buildroot}%{_bindir}
+%{__mkdir_p} %{buildroot}%{_bindir}
 # install new npm to build package
 npm config set registry="http://registry.npmjs.org/"
 npm config set ca ""
@@ -129,6 +129,8 @@ rm -Rf /tmp/atom-build
 %{_libdir}/libchromiumcontent.so
 
 %changelog
+* Thu Aug 06 2015 Helber Maciel Guerra <helbermg@gmail.com> v1.0.5-1
+- Release 1.0.5
 * Wed Jul 08 2015 Helber Maciel Guerra <helbermg@gmail.com> v1.0.1-1
 - Release 1.0.1
 * Thu Jun 25 2015 Helber Maciel Guerra <helbermg@gmail.com> v1.0.0-1
