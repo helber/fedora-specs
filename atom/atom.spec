@@ -57,37 +57,37 @@ Libraries need for atom
 
 %build
 
-export INSTALL_PREFIX=%{buildroot}/usr
+export INSTALL_PREFIX="%{buildroot}%{_prefix}"
 ## Upgrade npm
 %{__mkdir_p} %{buildroot}%{_bindir}
 # install new npm to build package
 npm config set registry="http://registry.npmjs.org/"
 npm config set ca ""
 npm config set strict-ssl false
-npm install -g --ca=null --prefix %{buildroot}/usr npm@2.7.6
+npm install -g --ca=null --prefix %{buildroot}%{_prefix} npm@2.7.6
 # Export PATH to new npm version
-export PATH="%{buildroot}/usr/bin:$PATH"
+export PATH="%{buildroot}%{_bindir}:$PATH"
 ./script/build --verbose 2>&1
 npm config delete ca
 
 %install
-INSTALL_PREFIX=%{buildroot}/usr ; export INSTALL_PREFIX
+INSTALL_PREFIX=%{buildroot}%{_prefix} ; export INSTALL_PREFIX
 ./script/grunt install 2>&1 >> /dev/null
-rm -f %{buildroot}%{_datadir}/atom/resources/app/apm/bin/node
+%{__rm} -f %{buildroot}%{_datadir}/atom/resources/app/apm/bin/node
 cd %{buildroot}%{_datadir}/atom/resources/app/apm/bin/
-ln -sf /usr/bin/node node
-sed -i "s/=.*atom/=atom/g" %{buildroot}%{_datadir}/applications/atom.desktop
-sed -i "s/atom.png/atom/g" %{buildroot}%{_datadir}/applications/atom.desktop
+%{__ln_s}f %{_bindir}/node node
+%{__sed} -i "s/=.*atom/=atom/g" %{buildroot}%{_datadir}/applications/atom.desktop
+%{__sed} -i "s/atom.png/atom/g" %{buildroot}%{_datadir}/applications/atom.desktop
 
 # copy over icons in sizes that most desktop environments like
 for i in 1024 512 256 128 64 48 32 24 16;do
-    mkdir -p %{buildroot}%{_datadir}/icons/hicolor/${i}x${i}/apps
+    %{__mkdir_p} %{buildroot}%{_datadir}/icons/hicolor/${i}x${i}/apps
     cp /tmp/atom-build/icons/${i}.png %{buildroot}%{_datadir}/icons/hicolor/${i}x${i}/apps/atom.png
 done
 
-mkdir -p %{buildroot}%{_libdir}/
-install -pm755 %{buildroot}%{_datadir}/atom/libchromiumcontent.so %{buildroot}%{_libdir}
-rm -Rf /tmp/atom-build
+%{__mkdir_p} %{buildroot}%{_libdir}
+%{__install} -pm755 %{buildroot}%{_datadir}/atom/libchromiumcontent.so %{buildroot}%{_libdir}
+%{__rm} -Rf /tmp/atom-build
 
 %post
 
