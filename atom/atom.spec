@@ -4,7 +4,7 @@
 %global         _missing_build_ids_terminate_build 0
 
 Name:           %{npm_name}
-Version:        1.0.7
+Version:        1.0.8
 Release:        1%{?dist}
 Summary:        A hackable text editor for the 21st Century
 
@@ -33,7 +33,7 @@ BuildRequires:  git-core
 Requires:       nodejs
 Requires:       http-parser
 Requires:       zsh
-Requires:       %{name}-libs = %{version}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 BuildRequires:  curl
 BuildRequires:  make
@@ -41,28 +41,22 @@ BuildRequires:  svn
 
 
 %description
-Atom is a hackable text editor for the 21st century, built on atom-shell, and based on everything we love about our favorite editors. We designed it to be deeply customizable, but still approachable using the default configuration.
+Atom is a text editor that's modern, approachable, yet hackable to the core - a tool you can customize to do anything but also use productively without ever touching a config file.
 
 Visit https://atom.io to learn more.
 
 %package libs
 Summary: Library to chromium
-Group: Development/Libraries
+Group: System Environment/Libraries
 
 %description libs
 Libraries need for atom
 
 %prep
 %setup -q -n %{npm_name}-%{version}
-# Install gyp
-git clone https://chromium.googlesource.com/external/gyp
-cd gyp
-%{__python} setup.py install --root $RPM_BUILD_ROOT
 
 %build
-# https://github.com/atom/atom/blob/master/docs/build-instructions/linux.md
-CFLAGS='%{optflags} -g -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64' ; export CFLAGS
-CXXFLAGS='%{optflags} -g -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64' ; export CXXFLAGS
+
 export INSTALL_PREFIX=%{buildroot}/usr
 ## Upgrade npm
 %{__mkdir_p} %{buildroot}%{_bindir}
@@ -73,17 +67,10 @@ npm config set strict-ssl false
 npm install -g --ca=null --prefix %{buildroot}/usr npm@2.7.6
 # Export PATH to new npm version
 export PATH="%{buildroot}/usr/bin:$PATH"
-# Python to gyp
-export PYTHONPATH=%{buildroot}%{python2_sitelib}
-# ./script/build 2>&1 >> /dev/null
-ls -l script
 ./script/build --verbose 2>&1
 npm config delete ca
 
 %install
-#rm -rf $RPM_BUILD_ROOT
-CFLAGS='%{optflags} -g -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64' ; export CFLAGS
-CXXFLAGS='%{optflags} -g -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64' ; export CXXFLAGS
 INSTALL_PREFIX=%{buildroot}/usr ; export INSTALL_PREFIX
 ./script/grunt install 2>&1 >> /dev/null
 rm -f %{buildroot}%{_datadir}/atom/resources/app/apm/bin/node
@@ -106,14 +93,7 @@ rm -Rf /tmp/atom-build
 
 %post libs -p /sbin/ldconfig
 
-%preun
-
-%postun
-
 %postun libs -p /sbin/ldconfig
-
-%clean
-#rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
@@ -129,6 +109,9 @@ rm -Rf /tmp/atom-build
 %{_libdir}/libchromiumcontent.so
 
 %changelog
+* Thu Aug 27 2015 Helber Maciel Guerra <helber@cianet.ind.br> v1.0.8-1
+- Clean and test spec for epel, centos and fedora
+- Release 1.0.8
 * Tue Aug 11 2015 Helber Maciel Guerra <helbermg@gmail.com> v1.0.6-1
 - Release 1.0.6
 * Thu Aug 06 2015 Helber Maciel Guerra <helbermg@gmail.com> v1.0.5-1
