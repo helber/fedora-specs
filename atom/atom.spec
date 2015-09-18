@@ -2,9 +2,10 @@
 %global         npm_name atom
 %global         atom_path %{_datadir}/atom
 %global         _missing_build_ids_terminate_build 0
+%global         npm_ver 2.7.6
 
 Name:           %{npm_name}
-Version:        1.0.8
+Version:        1.0.13
 Release:        1%{?dist}
 Summary:        A hackable text editor for the 21st Century
 
@@ -56,7 +57,6 @@ Libraries need for atom
 %setup -q -n %{npm_name}-%{version}
 
 %build
-
 export INSTALL_PREFIX="%{buildroot}%{_prefix}"
 ## Upgrade npm
 %{__mkdir_p} %{buildroot}%{_bindir}
@@ -64,7 +64,7 @@ export INSTALL_PREFIX="%{buildroot}%{_prefix}"
 npm config set registry="http://registry.npmjs.org/"
 npm config set ca ""
 npm config set strict-ssl false
-npm install -g --ca=null --prefix %{buildroot}%{_prefix} npm@2.7.6
+npm install -g --ca=null --prefix %{buildroot}%{_prefix} npm@%{npm_ver}
 # Export PATH to new npm version
 export PATH="%{buildroot}%{_bindir}:$PATH"
 ./script/build --verbose 2>&1
@@ -86,7 +86,7 @@ for i in 1024 512 256 128 64 48 32 24 16;do
 done
 
 %{__mkdir_p} %{buildroot}%{_libdir}
-%{__install} -pm755 %{buildroot}%{_datadir}/atom/libchromiumcontent.so %{buildroot}%{_libdir}
+%{__install} -pm755 %{buildroot}%{_datadir}/atom/libnode.so %{buildroot}%{_libdir}
 %{__rm} -Rf /tmp/atom-build
 
 %post
@@ -106,10 +106,14 @@ done
 %{_datadir}/icons/hicolor/
 
 %files libs
-%{_libdir}/libchromiumcontent.so
+%{_libdir}/libnode.so
 
 %changelog
-* Thu Aug 27 2015 Helber Maciel Guerra <helber@cianet.ind.br> v1.0.8-1
+* Thu Sep 17 2015 Helber Maciel Guerra <helbermg@gmail.com> v1.0.13-1
+- Change lib to libnode
+* Tue Sep 01 2015 Helber Maciel Guerra <helbermg@gmail.com> v1.0.10-1
+- Release 1.0.10
+* Thu Aug 27 2015 Helber Maciel Guerra <helbermg@gmail.com> v1.0.8-1
 - Clean and test spec for epel, centos and fedora
 - Release 1.0.8
 * Tue Aug 11 2015 Helber Maciel Guerra <helbermg@gmail.com> v1.0.6-1
