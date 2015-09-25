@@ -5,7 +5,7 @@
 %global         npm_ver 2.7.6
 
 Name:           %{npm_name}
-Version:        1.0.15
+Version:        1.0.18
 Release:        1%{?dist}
 Summary:        A hackable text editor for the 21st Century
 
