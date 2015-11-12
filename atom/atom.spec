@@ -5,7 +5,7 @@
 %global         npm_ver 2.7.6
 
 Name:           %{npm_name}
-Version:        1.0.19
+Version:        1.2.0
 Release:        1%{?dist}
 Summary:        A hackable text editor for the 21st Century
 
@@ -109,6 +109,8 @@ done
 %{_libdir}/libnode.so
 
 %changelog
+* Thu Nov 12 2015 Helber Maciel Guerra <helbermg@gmail.com> v1.2.0-1
+- Release 1.2.0
 * Thu Sep 17 2015 Helber Maciel Guerra <helbermg@gmail.com> v1.0.13-1
 - Change lib to libnode
 * Tue Sep 01 2015 Helber Maciel Guerra <helbermg@gmail.com> v1.0.10-1
