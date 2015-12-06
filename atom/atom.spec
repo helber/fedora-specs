@@ -5,7 +5,7 @@
 %global         npm_ver 2.7.6
 
 Name:           %{npm_name}
-Version:        1.2.3
+Version:        1.2.4
 Release:        1%{?dist}
 Summary:        A hackable text editor for the 21st Century
 
@@ -109,6 +109,8 @@ done
 %{_libdir}/libnode.so
 
 %changelog
+* Thu Dec 06 2015 Florian Kaiser <florian.kaiser@fnkr.net> v1.2.4-1
+- Release 1.2.4
 * Thu Nov 19 2015 Florian Kaiser <florian.kaiser@fnkr.net> v1.2.3-1
 - Release 1.2.3
 * Thu Nov 12 2015 Helber Maciel Guerra <helbermg@gmail.com> v1.2.0-1
