@@ -5,7 +5,7 @@
 %global         npm_ver 2.7.6
 
 Name:           %{npm_name}
-Version:        1.4.0
+Version:        1.4.1
 Release:        1%{?dist}
 Summary:        A hackable text editor for the 21st Century
 
@@ -59,7 +59,7 @@ Libraries need for atom
 %build
 export INSTALL_PREFIX="%{buildroot}%{_prefix}"
 ## Upgrade npm
-%{__mkdir_p} %{buildroot}%{_bindir}
+%{__mkdir_p} -p %{buildroot}%{_bindir}
 # install new npm to build package
 npm config set registry="http://registry.npmjs.org/"
 npm config set ca ""
@@ -109,6 +109,8 @@ done
 %{_libdir}/libnode.so
 
 %changelog
+* Tue Jan 26 2016 Helber Maciel Guerra <helbermg@gmail.com> v1.4.1-1
+- Release 1.4.1
 * Wed Jan 13 2016 Helber Maciel Guerra <helbermg@gmail.com> - v1.4.0-1
 - Release 1.4.0
 * Fri Dec 18 2015 Helber Maciel Guerra <helbermg@gmail.com> v1.3.2-1
