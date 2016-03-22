@@ -5,8 +5,8 @@
 %global         npm_ver 2.7.6
 
 Name:           %{npm_name}
-Version:        1.5.3
-Release:        1%{?dist}
+Version:        1.6.0
+Release:        3%{?dist}
 Summary:        A hackable text editor for the 21st Century
 
 Group:          Applications/Editors
@@ -72,6 +72,13 @@ npm config delete ca
 
 %install
 INSTALL_PREFIX=%{buildroot}%{_prefix} ; export INSTALL_PREFIX
+
+# copy over icons in sizes that most desktop environments like
+for i in 1024 512 256 128 64 48 32 24 16;do
+    %{__mkdir_p} %{buildroot}%{_datadir}/icons/hicolor/${i}x${i}/apps
+    cp out/icons/${i}.png %{buildroot}%{_datadir}/icons/hicolor/${i}x${i}/apps/atom.png
+done
+
 ./script/grunt install 2>&1 >> /dev/null
 %{__rm} -f %{buildroot}%{_datadir}/atom/resources/app/apm/bin/node
 cd %{buildroot}%{_datadir}/atom/resources/app/apm/bin/
@@ -79,15 +86,9 @@ cd %{buildroot}%{_datadir}/atom/resources/app/apm/bin/
 %{__sed} -i "s/=.*atom/=atom/g" %{buildroot}%{_datadir}/applications/atom.desktop
 %{__sed} -i "s/atom.png/atom/g" %{buildroot}%{_datadir}/applications/atom.desktop
 
-# copy over icons in sizes that most desktop environments like
-for i in 1024 512 256 128 64 48 32 24 16;do
-    %{__mkdir_p} %{buildroot}%{_datadir}/icons/hicolor/${i}x${i}/apps
-    cp /tmp/atom-build/icons/${i}.png %{buildroot}%{_datadir}/icons/hicolor/${i}x${i}/apps/atom.png
-done
-
 %{__mkdir_p} %{buildroot}%{_libdir}
 %{__install} -pm755 %{buildroot}%{_datadir}/atom/libnode.so %{buildroot}%{_libdir}
-%{__rm} -Rf /tmp/atom-build
+# %{__rm} -Rf /tmp/atom-build
 
 %post
 
@@ -109,6 +110,8 @@ done
 %{_libdir}/libnode.so
 
 %changelog
+* Mon Mar 21 2016 Helber Maciel Guerra <helbermg@gmail.com> v1.6.0-3
+- Release 1.6.0
 * Tue Jan 26 2016 Helber Maciel Guerra <helbermg@gmail.com> v1.4.1-1
 - Release 1.4.1
 * Wed Jan 13 2016 Helber Maciel Guerra <helbermg@gmail.com> - v1.4.0-1
