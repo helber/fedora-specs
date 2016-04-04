@@ -5,8 +5,8 @@
 %global         npm_ver 2.7.6
 
 Name:           %{npm_name}
-Version:        1.6.0
-Release:        3%{?dist}
+Version:        1.6.2
+Release:        1%{?dist}
 Summary:        A hackable text editor for the 21st Century
 
 Group:          Applications/Editors
@@ -82,13 +82,16 @@ done
 ./script/grunt install 2>&1 >> /dev/null
 %{__rm} -f %{buildroot}%{_datadir}/atom/resources/app/apm/bin/node
 cd %{buildroot}%{_datadir}/atom/resources/app/apm/bin/
+
+# Remove --harmony_collections
+%{__sed} -i "s/--harmony_collections//g" apm
+
 %{__ln_s}f %{_bindir}/node node
 %{__sed} -i "s/=.*atom/=atom/g" %{buildroot}%{_datadir}/applications/atom.desktop
 %{__sed} -i "s/atom.png/atom/g" %{buildroot}%{_datadir}/applications/atom.desktop
 
 %{__mkdir_p} %{buildroot}%{_libdir}
 %{__install} -pm755 %{buildroot}%{_datadir}/atom/libnode.so %{buildroot}%{_libdir}
-# %{__rm} -Rf /tmp/atom-build
 
 %post
 
